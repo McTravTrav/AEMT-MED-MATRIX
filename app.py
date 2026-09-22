@@ -7,986 +7,378 @@ st.set_page_config(
 )
 
 # -----------------------------------------------------------------------------
-# MASTER MEDICATION DATASET (37 ENTRIES)
+# MASTER MEDICATION DATASET (29 ENTRIES — sourced from Med Matrix reference card)
 # -----------------------------------------------------------------------------
 MEDICATIONS = [
     {
-        "name": "Acetaminophen (Tylenol)",
-        "class": "Analgesic; Antipyretic",
-        "action": (
-            "Elevates the pain threshold and fights fever by regulating the"
-            " hypothalamic heat-regulating center of the brain."
-        ),
-        "indications": "Relief of mild pain or fever, headache, muscle aches.",
-        "contraindications": "Hypersensitivity.",
-        "precautions": (
-            "Caution to avoid potential overdosing. Many OTC medications"
-            " contain acetaminophen."
-        ),
-        "side_effects": (
-            "Nausea & vomiting, GI upset, renal & liver complications."
-        ),
-        "adult_dose": "500-1000 mg PO every 4 hrs PRN",
-        "peds_dose": "15 mg/kg PO every 4 hours PRN",
-    },
-    {
-        "name": "Activated Charcoal (Actidose, Liquid Char)",
+        "name": "Activated Charcoal",
+        "category": "Toxicology / Overdose",
         "class": "Adsorbent",
-        "action": (
-            "Absorbs toxins in the GI tract through chemical binding which"
-            " prevents absorption by the GI tract."
+        "route": "Oral",
+        "indications": "Most oral poisonings or overdoses.",
+        "contraindications": (
+            "Decreased LOC, inability to maintain airway, overdose of"
+            " corrosives, caustics, or petroleum substances."
         ),
-        "indications": "Non-caustic ingested poisonings/overdoses.",
-        "contraindications": "Must have gag reflex present.",
-        "precautions": (
-            "Do not administer to patients without an intact gag reflex."
-        ),
-        "side_effects": "Nausea, vomiting, constipation, dark stools.",
-        "adult_dose": (
-            "1 g/kg PO (Normal range 50-75g). Mix with water to form slurry if"
-            " not premixed."
-        ),
-        "peds_dose": "1 g/kg PO. Mix with water to form slurry.",
+        "adult_dose": "1 - 2 g/kg",
+        "peds_dose": "1 - 2 g/kg",
     },
     {
-        "name": "Albuterol Sulfate (Ventolin, Proventil, Pro-Air)",
-        "class": (
-            "Sympathetic Agonist / Selective Beta-2 Agonist Bronchodilator"
+        "name": "Oral Glucose",
+        "category": "Endocrine / Glucose",
+        "class": "Carbohydrate",
+        "route": "Buccal/Oral",
+        "indications": "Hypoglycemia.",
+        "contraindications": (
+            "Decreased LOC, inability to maintain airway, nausea and vomiting."
         ),
-        "action": (
-            "Selective Beta-2 agonist causing rapid bronchodilation (onset 5-15"
-            " mins)."
-        ),
-        "indications": (
-            "Acute bronchial asthma attack, bronchospasm associated with COPD"
-            " and emphysema."
-        ),
-        "contraindications": "Known hypersensitivity (allergy) to drug.",
-        "precautions": (
-            "Use caution in patients with known heart disease; monitor ECG"
-            " rhythm."
-        ),
-        "side_effects": (
-            "Palpitations, anxiety, dizziness, headache, nervousness, tremors,"
-            " HTN, dysrhythmias, chest pain, N/V."
-        ),
-        "adult_dose": "2.5 mg in 3 mL NS via small volume nebulizer over 5-15 mins",
-        "peds_dose": "2.5 mg in 3 mL NS via small volume nebulizer over 5-15 mins",
+        "adult_dose": "15 g",
+        "peds_dose": "15 g",
     },
     {
-        "name": "Albuterol / Ipratropium (DuoNeb, Combivent)",
-        "class": "Beta Agonist with Anti-cholinergic Bronchodilator",
-        "action": (
-            "Ipratropium blocks acetylcholine receptors inhibiting"
-            " parasympathetic response, drying secretions. Albuterol selectively"
-            " stimulates Beta-2 receptors causing rapid bronchodilation."
+        "name": "Albuterol",
+        "category": "Respiratory",
+        "class": "Bronchodilator",
+        "route": "Inhaled",
+        "indications": "Asthma; difficulty breathing associated with wheezing.",
+        "contraindications": (
+            "None in true emergency. Consider tachycardia, cardiac chest pain."
         ),
+        "adult_dose": "2.5 mg/3 cc",
+        "peds_dose": "2.5 mg/3 cc",
+    },
+    {
+        "name": "Epinephrine 1:1,000",
+        "category": "Allergy / Anaphylaxis",
+        "class": "Sympathomimetic",
+        "route": "IM, Autoinjector",
+        "indications": "Anaphylactic reaction.",
+        "contraindications": (
+            "None in true emergency. Consider cardiac chest pain, hypothermia,"
+            " HTN."
+        ),
+        "adult_dose": "0.3 mg",
+        "peds_dose": "0.01 mg/kg",
+    },
+    {
+        "name": "Nitroglycerin (NTG)",
+        "category": "Cardiac",
+        "class": "Nitrate",
+        "route": "Dermal, Sublingual",
+        "indications": "Cardiac chest pain.",
+        "contraindications": (
+            "BP under 90 systolic, ED medications within the last 24 hours,"
+            " head injuries."
+        ),
+        "adult_dose": "0.4 mg",
+        "peds_dose": "Not indicated.",
+    },
+    {
+        "name": "Aspirin (ASA)",
+        "category": "Cardiac",
+        "class": "Anti-platelet",
+        "route": "Oral",
         "indications": (
-            "Bronchospasm associated with COPD in patients requiring multiple"
-            " bronchodilators; acute asthma attacks."
+            "Cardiac chest pain; OTC for headaches, minor aches and pains."
+        ),
+        "contraindications": "Active or recent bleeding.",
+        "adult_dose": "324 mg chewable tablets (baby ASA is 81 mg)",
+        "peds_dose": "Not indicated.",
+    },
+    {
+        "name": "Zofran (Ondansetron)",
+        "category": "GI / Antiemetic",
+        "class": "Anti-emetic",
+        "route": "Oral (ODT), IM/IV",
+        "indications": "Nausea.",
+        "contraindications": "Abnormal heart beat, allergic, pregnant.",
+        "adult_dose": "4 mg - 8 mg",
+        "peds_dose": "(<40 kg) 0.1 mg/kg",
+    },
+    {
+        "name": "Narcan (Naloxone)",
+        "category": "Toxicology / Overdose",
+        "class": "Opiate Antagonist",
+        "route": "IM, IV, IN, IO",
+        "indications": "Opiate overdose.",
+        "contraindications": "Hypersensitivity.",
+        "adult_dose": "0.4 mg - 2 mg",
+        "peds_dose": "0.1 mg/kg",
+    },
+    {
+        "name": "Diphenhydramine HCL (Benadryl)",
+        "category": "Allergy / Anaphylaxis",
+        "class": "Anti-histamine",
+        "route": "IM, IV, Oral",
+        "indications": "Allergic reaction.",
+        "contraindications": "Allergic, hypertension, constipation.",
+        "adult_dose": "25 - 50 mg",
+        "peds_dose": "1.0 - 2.0 mg/kg",
+    },
+    {
+        "name": "Duo-Neb (Albuterol + Ipratropium Bromide)",
+        "category": "Respiratory",
+        "class": "Beta Agonist + Anticholinergic Bronchodilator",
+        "route": "Inhaled",
+        "indications": (
+            "Bronchospasm in COPD; 2nd line for asthma attacks."
+        ),
+        "contraindications": "None in true emergency setting.",
+        "adult_dose": "3.5 mg/3 ml (Ipratropium 0.50 mg / Albuterol 3 mg)",
+        "peds_dose": "0.5 mg",
+    },
+    {
+        "name": "Glucagon",
+        "category": "Endocrine / Glucose",
+        "class": "Hormone",
+        "route": "IM, Auto-injector",
+        "indications": (
+            "Low BGL less than 50 and unable to swallow; altered mental"
+            " status."
+        ),
+        "contraindications": "None in true emergency setting.",
+        "adult_dose": "1 mg/ml",
+        "peds_dose": "(<25 kg) 0.5 mg",
+    },
+    {
+        "name": "Duo-Dote",
+        "category": "Toxicology / Overdose",
+        "class": "Parasympatholytic",
+        "route": "Auto-injector",
+        "indications": "Organophosphate poisoning.",
+        "contraindications": "None in true emergency setting.",
+        "adult_dose": "2 mg",
+        "peds_dose": "Not specified on reference card.",
+    },
+    {
+        "name": "Dextrose (D50)",
+        "category": "Endocrine / Glucose",
+        "class": "Carbohydrate",
+        "route": "IV, IO",
+        "indications": "Hypoglycemia.",
+        "contraindications": "Hyperglycemia, intracranial hemorrhage.",
+        "adult_dose": "25 gm/50 ml",
+        "peds_dose": "1 gm/kg of D25",
+    },
+    {
+        "name": "Midazolam",
+        "category": "Neuro / Seizure",
+        "class": "Sedative, Benzodiazepine, Anticonvulsant, Amnesic",
+        "route": "IV, IO, IN",
+        "indications": (
+            "Seizures, status epilepticus, anxiety (depending on protocols)."
         ),
         "contraindications": (
-            "Known hypersensitivity to Albuterol, Ipratropium, Atrovent, or"
-            " Atropine derivatives."
+            "Respiratory depression, hypersensitivity, CNS depression."
         ),
-        "precautions": (
-            "May exacerbate cardiac-related disease; watch for severe"
-            " hypersensitivity reactions."
-        ),
-        "side_effects": (
-            "Palpitations, anxiety, dizziness, headache, tremors, HTN, chest"
-            " pain, N/V, hives, angioedema."
-        ),
-        "adult_dose": (
-            "0.5 mg Ipratropium / 3.0 mg Albuterol in 3 mL via in-line"
-            " nebulizer. Switch to Albuterol-only if further doses needed."
-        ),
-        "peds_dose": (
-            "1 vial via in-line nebulizer (6-10 LPM O2). Switch to"
-            " Albuterol-only if further doses needed."
-        ),
-    },
-    {
-        "name": "Amiodarone (Cordarone)",
-        "class": "Antiarrhythmic Agent (Class III)",
-        "action": (
-            "Prolongs action potential & refractory period, blocks myocardial"
-            " potassium channels, causes vasodilation to decrease myocardial"
-            " O2 demand."
-        ),
-        "indications": (
-            "Refractory ventricular fibrillation/pulseless VT; interfacility"
-            " transport maintenance."
-        ),
-        "contraindications": (
-            "2nd or 3rd degree AV blocks, cardiogenic shock, severe bradycardia."
-        ),
-        "precautions": (
-            "QT prolongation (risk of Torsades); precipitates with Sodium"
-            " Bicarb; interactions with Beta/Calcium Channel blockers."
-        ),
-        "side_effects": "Hypotension, bradycardia, CHF, nausea, cardiac arrest.",
-        "adult_dose": (
-            "Initial 300 mg rapid IV/IO push. May repeat in 3-5 mins at 150 mg"
-            " rapid IV/IO push."
-        ),
-        "peds_dose": "5 mg/kg rapid IV/IO push (Max 15 mg/kg).",
-    },
-    {
-        "name": "Aspirin (Acetylsalicylic Acid / ASA / Bayer)",
-        "class": "Platelet Inhibitor / Anti-Inflammatory (NSAID)",
-        "action": "Blocks platelet aggregation ('de-stickies' platelets).",
-        "indications": (
-            "New chest pain suggestive of acute myocardial infarction/ischemic"
-            " event."
-        ),
-        "contraindications": (
-            "Hypersensitivity, exceeded maximum dose, active peptic ulcer,"
-            " active GI bleed."
-        ),
-        "precautions": (
-            "Do not administer to children due to high risk of Reye's syndrome."
-        ),
-        "side_effects": (
-            "Heartburn, nausea, vomiting, wheezing, GI bleeding, prolonged"
-            " bleeding."
-        ),
-        "adult_dose": "160 to 325 mg PO chewed (2-4 baby ASA tablets)",
-        "peds_dose": "Not recommended",
-    },
-    {
-        "name": "Atropine (Atropen)",
-        "class": "Parasympatholytic / Anticholinergic",
-        "action": (
-            "Blocks acetylcholine receptors, reducing parasympathetic"
-            " stimulation. Increases HR, dilates bronchioles, and dries"
-            " secretions."
-        ),
-        "indications": (
-            "Organophosphate poisoning, nerve agent exposure/poisoning. Self or"
-            " peer care."
-        ),
-        "contraindications": (
-            "None in organophosphate or nerve agent poisoning settings."
-        ),
-        "precautions": (
-            "None in emergency setting when given by an AEMT. Large doses"
-            " indicated in severe poisoning."
-        ),
-        "side_effects": (
-            "Blurred vision, dilated pupils, dry mouth, drowsiness, confusion,"
-            " tachycardia."
-        ),
-        "adult_dose": (
-            "2 mg Atropine per Mark 1 or DuoDote kit IM. Repeat if no"
-            " improvement per local protocol."
-        ),
-        "peds_dose": "None at this time for AEMT level.",
-    },
-    {
-        "name": "Dextrose (D50, D25, D10)",
-        "class": "Hyperglycemic Agent / Carbohydrate",
-        "action": (
-            "Restores blood sugar to normal levels and provides immediate"
-            " cellular energy."
-        ),
-        "indications": "Hypoglycemia ONLY.",
-        "contraindications": (
-            "Diabetic coma with hyperglycemia, intracranial or intraspinal"
-            " hemorrhage."
-        ),
-        "precautions": (
-            "Draw blood sample prior to administration; highly hypertonic (can"
-            " cause vein irritation/necrosis)."
-        ),
-        "side_effects": (
-            "Venous thrombosis, phlebitis, tissue necrosis upon extravasation,"
-            " polydipsia, tachypnea."
-        ),
-        "adult_dose": "25 g IV of D50 (50 mL). Repeat PRN if ineffective.",
-        "peds_dose": (
-            "30 days to 25kg: 0.5-1.0 g/kg IV of D25 solution; Neonates (<30"
-            " days): 0.2 g/kg IV of D10 solution."
-        ),
+        "adult_dose": "1.0 - 2.5 mg",
+        "peds_dose": "0.1 mg/kg (MAX 2 mg)",
     },
     {
         "name": "Diazepam (Valium)",
-        "class": "Benzodiazepine / Sedative / Anticonvulsant",
-        "action": (
-            "Suppresses spread of seizure activity through motor cortex,"
-            " relaxes skeletal muscle."
-        ),
-        "indications": "Status Epilepticus ONLY.",
-        "contraindications": (
-            "Hypersensitivity, severe CNS depression, respiratory depression,"
-            " narrow-angle glaucoma."
-        ),
-        "precautions": (
-            "Rapid IV push causes respiratory depression, apnea, or"
-            " hypotension. Potentiated by CNS depressants."
-        ),
-        "side_effects": (
-            "Apnea, bradycardia, hypotension, drowsiness, confusion, pain with"
-            " injection."
-        ),
-        "adult_dose": (
-            "2-10 mg slow IV/IO/IM/IN/PR (titrated to stop seizure). Max total:"
-            " 30 mg."
-        ),
-        "peds_dose": (
-            "Up to 5 yrs: 0.2-0.5 mg/kg IV/IO/PR (Max 5mg); >5 yrs: 1.0 mg every"
-            " 2-5 min (Max 10mg)."
-        ),
-    },
-    {
-        "name": "Diphenhydramine (Benadryl)",
-        "class": "Antihistamine / Sedative",
-        "action": (
-            "Competes with histamine for H1 receptor sites on effector cells in"
-            " GI, blood vessels, and respiratory tract."
-        ),
+        "category": "Neuro / Seizure",
+        "class": "Sedative, Benzodiazepine, Anticonvulsant",
+        "route": "IV, IO, Rectal",
         "indications": (
-            "Acute Allergic Reaction (AEMT IV route), dyspnea/mild allergic"
-            " symptoms, anaphylaxis after shock is managed."
+            "Seizures, status epilepticus, anxiety (depending on protocols)."
         ),
         "contraindications": (
-            "Hypersensitivity, acute asthma attack (unless wheezing concurrent"
-            " with anaphylaxis)."
+            "Respiratory depression, hypersensitivity, CNS depression."
         ),
-        "precautions": (
-            "Potentiates sedatives & anticholinergics. Use caution in glaucoma,"
-            " peptic ulcer, hyperthyroidism."
-        ),
-        "side_effects": (
-            "Sedation, dizziness, hypotension, palpitations, dry mucous"
-            " membranes, thickened bronchial secretions."
-        ),
-        "adult_dose": "25 - 50 mg IV, IM, or PO",
-        "peds_dose": "1.0 - 2.0 mg/kg IV, IM, or PO (Do not exceed adult dose)",
-    },
-    {
-        "name": "DuoDote Kit (Atropine & Pralidoxime Chloride)",
-        "class": "Antidote / Anticholinergic & Cholinesterase Reactivator",
-        "action": (
-            "Atropine blocks acetylcholine receptors to reduce parasympathetic"
-            " stimulation. Pralidoxime removes phosphate groups from"
-            " cholinesterase, reactivating the enzyme to breakdown excess"
-            " acetylcholine."
-        ),
-        "indications": (
-            "Organophosphate poisoning, nerve agent exposure/poisoning (Self"
-            " or peer care)."
-        ),
-        "contraindications": (
-            "None in organophosphate or nerve agent poisoning setting."
-        ),
-        "precautions": (
-            "Self or peer care priority. Large doses indicated in severe"
-            " poisoning."
-        ),
-        "side_effects": (
-            "Blurred vision, dilated pupils, dry mouth, dizziness, headache,"
-            " tachycardia, HTN, N/V."
-        ),
-        "adult_dose": (
-            "1 auto-injector IM (delivers 2.1 mg Atropine / 600 mg Pralidoxime"
-            " Cl). Repeat per local protocol if no improvement."
-        ),
-        "peds_dose": "Protocol driven / None at this time for AEMT level.",
-    },
-    {
-        "name": "Epinephrine 1:1,000 (Adrenaline)",
-        "class": "Catecholamine / Sympathomimetic",
-        "action": (
-            "Stimulates Alpha, Beta-1, and Beta-2 adrenergic receptors."
-            " Relaxes bronchial smooth muscle, causes cardiac stimulation and"
-            " skeletal muscle vasodilation."
-        ),
-        "indications": "Anaphylactic reaction.",
-        "contraindications": "None in severe anaphylaxis.",
-        "precautions": (
-            "Use caution in patients > 50 years old in non-arrest state."
-        ),
-        "side_effects": (
-            "Tachycardia, HTN, palpitations, anxiety, headache, dyspnea,"
-            " cardiac dysrhythmias."
-        ),
-        "adult_dose": (
-            "0.1 - 0.3 - 0.5 mg IM (1:1,000 solution via manual draw or"
-            " auto-injector)"
-        ),
-        "peds_dose": (
-            "0.15 mg IM (1:1,000 solution via manual draw or auto-injector)"
-        ),
-    },
-    {
-        "name": "Epinephrine 1:10,000 (Adrenaline)",
-        "class": "Catecholamine / Sympathomimetic",
-        "action": (
-            "Increases HR, cardiac contractile force, myocardial electrical"
-            " activity, SVR ('makes the tank smaller'), BP, and automaticity."
-            " Lowers V-Fib threshold."
-        ),
-        "indications": "Cardiac Arrest.",
-        "contraindications": "None in cardiac arrest.",
-        "precautions": (
-            "Deactivated by alkaline solutions like Sodium Bicarb; flush line"
-            " between uses."
-        ),
-        "side_effects": (
-            "Tachycardia, HTN, increased myocardial O2 demand,"
-            " dysrhythmias, anxiety, headache."
-        ),
-        "adult_dose": "1 mg IV/IO every 3-5 minutes (No max dose)",
-        "peds_dose": (
-            "0.01 mg/kg (0.1 mL/kg of 1:10,000) IV/IO every 3-5 minutes (No max"
-            " dose)"
-        ),
-    },
-    {
-        "name": "Fentanyl Citrate (Sublimaze)",
-        "class": "Opiate Analgesic (Schedule II)",
-        "action": (
-            "Potent synthetic narcotic agonist. Increases pain threshold,"
-            " alters pain reception, depresses CNS. 50-100x more potent than"
-            " morphine with minimal histamine release."
-        ),
-        "indications": "Pain relief (including ischemic chest pain).",
-        "contraindications": (
-            "Hypersensitivity to opiates, current use of MAOIs."
-        ),
-        "precautions": (
-            "Rapid IV push causes chest wall rigidity (inability to ventilate"
-            " via BVM). Use caution in head injury/ICP."
-        ),
-        "side_effects": "Bradycardia, hypotension, flushing, dizziness, N/V.",
-        "adult_dose": (
-            "1 mcg/kg slow IV/IO/IN (titrate to effect, typical range 25-100"
-            " mcg). May repeat x1 in 5 min (Max 2 mcg/kg)."
-        ),
-        "peds_dose": (
-            "1 mcg/kg slow IV/IO/IN (Age 1-12 yrs). Do not exceed adult dose."
-            " May repeat x1 in 30 min with physician order."
-        ),
-    },
-    {
-        "name": "Glucagon (GlucaGen)",
-        "class": "Pancreatic Hormone / Hyperglycemic Agent",
-        "action": (
-            "Stimulates hepatic glycogenolysis to convert stored glycogen to"
-            " glucose. Has positive inotropic and chronotropic effects on heart"
-            " independent of beta blockade."
-        ),
-        "indications": (
-            "Acute Hypoglycemia when oral glucose or IV/IO access is"
-            " unobtainable."
-        ),
-        "contraindications": (
-            "Hypersensitivity, 2nd and 3rd-degree heart block."
-        ),
-        "precautions": (
-            "Requires intact liver glycogen stores; give supplemental oral carbs"
-            " as soon as patient wakes. Caution in pheochromocytoma."
-        ),
-        "side_effects": "Nausea, vomiting, transient hypotension.",
-        "adult_dose": (
-            "1.0 mg IM (via traditional kit or auto-injector/GlucaPen)"
-        ),
-        "peds_dose": "30 days to 25kg: 0.5 mg IM; > 25kg: 1.0 mg IM",
-    },
-    {
-        "name": "Glutose (Oral Glucose / Gel)",
-        "class": "Carbohydrate",
-        "action": (
-            "Raises blood glucose levels via direct absorption through oral"
-            " mucous membranes and GI tract."
-        ),
-        "indications": "Acute Hypoglycemia.",
-        "contraindications": (
-            "Inability to swallow, inability to maintain airway, total"
-            " unresponsiveness."
-        ),
-        "precautions": (
-            "Continuously monitor LOC during administration to avoid"
-            " aspiration."
-        ),
-        "side_effects": "Nausea, vomiting, hyperglycemia.",
-        "adult_dose": "1 tube PO (15g, 31g, or 45g squeeze tube/pack)",
-        "peds_dose": "1 tube PO titrated to effect",
-    },
-    {
-        "name": "Hydrocortisone (Solu-Cortef)",
-        "class": "Corticosteroid / Anti-inflammatory",
-        "action": (
-            "Short-acting synthetic steroid that inhibits formation, storage,"
-            " and release of histamine from mast cells."
-        ),
-        "indications": "Severe Asthma.",
-        "contraindications": "Hypersensitivity.",
-        "precautions": (
-            "Single dose in prehospital setting. Long-term use causes GI"
-            " bleeding and delayed wound healing."
-        ),
-        "side_effects": (
-            "Fluid retention, HTN, abdominal distention, vertigo, headache,"
-            " hiccups."
-        ),
-        "adult_dose": (
-            "40 - 250 mg IV (Usually 250 mg; 'Core is More'). IM is permitted"
-            " per KSBEMS."
-        ),
-        "peds_dose": "4 - 8 mg/kg IV/IM (IV preferred)",
-    },
-    {
-        "name": "Hydromorphone (Dilaudid)",
-        "class": "Opiate Analgesic (Schedule II)",
-        "action": (
-            "Potent opiate receptor agonist (7x more potent than Morphine)."
-            " Alters pain reception and causes peripheral vasodilation"
-            " decreasing venous return."
-        ),
-        "indications": "Moderate to severe pain (including chest pain).",
-        "contraindications": (
-            "Hypersensitivity to opiates, hypotension, hypovolemia, head injury"
-            " with AMS, active status asthmaticus."
-        ),
-        "precautions": (
-            "Requires continuous pulse oximetry, cardiac monitoring, and airway"
-            " readiness. May need 9mL NS dilution for accurate dosing."
-        ),
-        "side_effects": (
-            "Respiratory depression, bradycardia, hypotension, lightheadedness,"
-            " hallucinations, N/V."
-        ),
-        "adult_dose": (
-            "0.5 mg slow IVP over 2-3 minutes every 10 min PRN (Max 2.0 mg"
-            " total)"
-        ),
-        "peds_dose": "Not recommended for pediatric pain control.",
-    },
-    {
-        "name": "Ipratropium Bromide (Atrovent)",
-        "class": "Anticholinergic Bronchodilator",
-        "action": (
-            "Inhibits acetylcholine at bronchial smooth muscle receptors,"
-            " suppressing cholinergic response to allow Beta-2 bronchodilation."
-            " Abolishes vagally mediated reflex bronchospasm."
-        ),
-        "indications": (
-            "Acute asthma and bronchospasm (alone or co-administered with"
-            " Albuterol)."
-        ),
-        "contraindications": (
-            "Hypersensitivity to Ipratropium, Atrovent components, or Atropine"
-            " derivatives."
-        ),
-        "precautions": (
-            "Watch for acute hypersensitivity reactions (angioedema,"
-            " laryngospasm)."
-        ),
-        "side_effects": (
-            "Hives, angioedema, rash, paradoxical bronchospasm, anaphylaxis,"
-            " oropharyngeal edema."
-        ),
-        "adult_dose": "500 mcg (0.5 mg) via nebulizer at 6-10 LPM O2",
-        "peds_dose": "500 mcg (0.5 mg) via nebulizer at 6-10 LPM O2",
-    },
-    {
-        "name": "Ketorolac (Toradol)",
-        "class": "Nonsteroidal Anti-Inflammatory Drug (NSAID)",
-        "action": (
-            "Inhibits prostaglandin synthesis via COX enzyme inhibition."
-            " Provides potent analgesia with moderate anti-inflammatory"
-            " action. Effective for renal colic."
-        ),
-        "indications": "Mild to moderate pain.",
-        "contraindications": (
-            "Hypersensitivity/NSAID allergy, asthma, renal insufficiency, PUD/GI"
-            " bleed, pregnancy, hypovolemia, non-isolated trauma, upcoming major"
-            " surgery."
-        ),
-        "precautions": (
-            "NOT for abdominal or chest pain. Reduce dose by 50% in patients >"
-            " 65 yrs old."
-        ),
-        "side_effects": (
-            "GI bleeding, N/V, headache, drowsiness, abdominal pain, dyspepsia."
-        ),
-        "adult_dose": (
-            "15 - 30 mg IM or slow IVP (over at least 15 sec). Max daily: 60 mg"
-            " IM / 120 mg IV."
-        ),
-        "peds_dose": (
-            "0.5 - 1.0 mg/kg IM/IV single dose (Max 15 mg total daily)."
-        ),
-    },
-    {
-        "name": "Lactated Ringers (LR)",
-        "class": "Isotonic Crystalloid Salt Solution",
-        "action": (
-            "Expands circulating volume by approximating blood sodium content"
-            " (273 mOsmol/L). Contains Na 130, Cl 109, K 4, Ca 3, Lactate 28"
-            " mEq/L."
-        ),
-        "indications": (
-            "Volume replacement fluid, TKO line for medication administration,"
-            " wound irrigation."
-        ),
-        "contraindications": (
-            "None (avoid during blood transfusion due to risk of coagulation)."
-        ),
-        "precautions": (
-            "Avoid blood co-infusion; perform frequent lung sound assessments"
-            " to prevent fluid overload."
-        ),
-        "side_effects": "Fluid overload, edema, electrolyte imbalance, HTN, CHF.",
-        "adult_dose": "TKO or 20 mL/kg boluses per protocol",
-        "peds_dose": "TKO or 20 mL/kg boluses per protocol",
-    },
-    {
-        "name": "Levalbuterol (Xopenex / Zopanex)",
-        "class": "Beta Adrenergic Agonist (Beta-2 Selective)",
-        "action": (
-            "Stimulates Beta-2 receptors, increasing cyclic AMP to relax"
-            " bronchial smooth muscle. Inhibits mast cell mediator release."
-            " R-isomer provides bronchodilation with potentially less cardiac"
-            " stimulation/tachycardia than racemic Albuterol."
-        ),
-        "indications": (
-            "Acute bronchial asthma attack, reversible bronchospasm associated"
-            " with COPD and emphysema."
-        ),
-        "contraindications": (
-            "History of hypersensitivity to Levalbuterol HCl or racemic"
-            " Albuterol."
-        ),
-        "precautions": (
-            "Use caution in patients with known heart disease; monitor cardiac"
-            " rhythm (ECG)."
-        ),
-        "side_effects": (
-            "Palpitations, anxiety, dizziness, headache, nervousness, tremors,"
-            " HTN, dysrhythmias, chest pain, N/V."
-        ),
-        "adult_dose": (
-            "1.25 – 2.5 mg in 3 mL via small volume, in-line nebulizer every 20"
-            " mins (Max 3 doses)."
-        ),
-        "peds_dose": (
-            "0.075 mg/kg/dose (Min dose 1.25 mg) via small volume, in-line"
-            " nebulizer every 20 mins (Max 3 doses)."
-        ),
-    },
-    {
-        "name": "Lidocaine (Xylocaine)",
-        "class": "Antiarrhythmic (Class IB) / Local Anesthetic",
-        "action": (
-            "Suppresses ventricular ectopic activity, increases V-Fib"
-            " threshold, reduces conduction velocity, decreases pain threshold"
-            " prior to IO infusion."
-        ),
-        "indications": (
-            "VF, Pulseless VT, anesthesia prior to or after IO insertion."
-        ),
-        "contraindications": (
-            "High-degree heart blocks, PVCs associated with bradycardia,"
-            " bradycardic rhythms."
-        ),
-        "precautions": (
-            "Max cumulative dose 3 mg/kg. Reduce dose by 50% in patients > 70"
-            " yrs or with liver disease. Watch for metallic taste/tinnitus (CNS"
-            " toxicity)."
-        ),
-        "side_effects": (
-            "Anxiety, drowsiness, confusion, N/V, seizures, metallic taste,"
-            " tinnitus."
-        ),
-        "adult_dose": (
-            "Cardiac Arrest: 1-1.5 mg/kg IV/IO (Repeat 0.5-0.75 mg/kg to max"
-            " 3mg/kg). IO Anesthetic: 40 mg slowly over 120s, 60s dwell, flush"
-            " NS, then 20 mg over 60s."
-        ),
-        "peds_dose": (
-            "Cardiac Arrest: 1 mg/kg IV/IO. IO Anesthetic: 0.5 mg/kg (Max 40"
-            " mg) over 120s, 60s dwell, flush NS, then half initial dose over"
-            " 60s."
-        ),
+        "adult_dose": "2 - 10 mg",
+        "peds_dose": "0.5 - 1.0 mg/kg (MAX 2 mg)",
     },
     {
         "name": "Lorazepam (Ativan)",
-        "class": "Benzodiazepine / Anticonvulsant",
-        "action": (
-            "Potent benzodiazepine acting via inhibitory neurotransmitter GABA"
-            " at thalamic, hypothalamic, and limbic CNS levels. Suppresses"
-            " seizure activity in motor cortex."
-        ),
-        "indications": "Status Epilepticus ONLY.",
-        "contraindications": (
-            "Hypersensitivity, comatose state, pre-existing CNS depression,"
-            " narrow-angle glaucoma, severe uncontrolled pain, severe"
-            " hypotension."
-        ),
-        "precautions": (
-            "Preferred drug for pediatric seizures due to shorter half-life."
-            " Caution in renal/hepatic/pulmonary impairment."
-        ),
-        "side_effects": (
-            "Respiratory depression, apnea, bradycardia, hypotension, CNS"
-            " depression, sedation, confusion."
-        ),
-        "adult_dose": "1 - 4 mg slow IV/IO, IM, IN, or PR",
-        "peds_dose": (
-            "12-17 yrs: 0.07 mg/kg; 1 mo - 11 yrs: 0.1 mg/kg (Max 2 mg); < 1"
-            " mo: 0.05 mg/kg IV/IO/IM/IN/PR"
-        ),
-    },
-    {
-        "name": "Methylprednisolone (Solu-Medrol)",
-        "class": "Corticosteroid / Anti-inflammatory",
-        "action": (
-            "Anti-inflammatory steroid that reduces tissue-destructive enzyme"
-            " release, inhibits capillary permeability, and blocks allergic"
-            " substance storage."
-        ),
-        "indications": "Respiratory Emergencies (Severe Asthma).",
-        "contraindications": (
-            "Premature infants (fatal gasping syndrome risk), hypersensitivity."
-        ),
-        "precautions": (
-            "Single dose for prehospital use; long-term use causes GI bleeding,"
-            " delayed wound healing, adrenocortical suppression."
-        ),
-        "side_effects": (
-            "Hiccups, fluid retention, nausea, abdominal distention."
-        ),
-        "adult_dose": (
-            "125 - 250 mg IV (Usually 125 mg; IV preferred). Up to 30 mg/kg via"
-            " medical order."
-        ),
-        "peds_dose": "1 - 2 mg/kg IV/IM (IV preferred)",
-    },
-    {
-        "name": "Midazolam (Versed)",
-        "class": "Benzodiazepine / Tranquilizer",
-        "action": (
-            "Short-acting parenteral benzodiazepine with CNS depressant,"
-            " muscle relaxant, anticonvulsant, and anterograde amnestic"
-            " effects. Intensifies GABA activity. No analgesic effect."
-        ),
-        "indications": "Status Epilepticus ONLY.",
-        "contraindications": (
-            "Hypersensitivity, narrow-angle glaucoma, shock."
-        ),
-        "precautions": (
-            "Have resuscitative equipment ready. Dilute with NS or D5W prior to"
-            " IV administration. High risk of respiratory depression."
-        ),
-        "side_effects": (
-            "Respiratory depression, apnea, hypotension, drowsiness,"
-            " confusion, amnesia."
-        ),
-        "adult_dose": (
-            "2.5 mg initial slow IV/IO/IM/IN/PR (Repeat to avg range 5 mg; Max"
-            " 8 mg total)"
-        ),
-        "peds_dose": (
-            "0.1 mg/kg IV/IO/IM/IN/PR (Typical single max 2.5 mg; max total 5"
-            " mg)"
-        ),
-    },
-    {
-        "name": "Morphine Sulfate (MSO4)",
-        "class": "Narcotic Analgesic (Schedule II)",
-        "action": (
-            "Natural opium derivative acting on brain opiate receptors."
-            " Depresses CNS, causes peripheral vasodilation ('makes tank"
-            " bigger'), reducing preload and myocardial O2 demand."
-        ),
-        "indications": "Pain relief (including ischemic chest pain).",
-        "contraindications": (
-            "Head injury, severe volume depletion, hypersensitivity to"
-            " morphine."
-        ),
-        "precautions": (
-            "Respiratory depression risk (have Narcan available),"
-            " hypotension, N/V."
-        ),
-        "side_effects": (
-            "Altered LOC, dizziness, hives, respiratory depression,"
-            " hypotension, N/V."
-        ),
-        "adult_dose": "2.0 - 10 mg IV/IO/IM (Titrate to effect per protocol)",
-        "peds_dose": (
-            "0.1 - 0.2 mg/kg IV/IO bolus (Titrate to effect; direct physician"
-            " order encouraged)"
-        ),
-    },
-    {
-        "name": "Naloxone (Narcan)",
-        "class": "Narcotic Antagonist",
-        "action": (
-            "Pure opioid antagonist that competes for and displaces narcotic"
-            " molecules from brain opiate receptors to reverse respiratory"
-            " depression."
-        ),
+        "category": "Neuro / Seizure",
+        "class": "Sedative, Benzodiazepine, Anticonvulsant",
+        "route": "IV, IO, IN, Rectal",
         "indications": (
-            "Narcotic toxicity / overdose reversal with respiratory depression."
+            "Seizures, status epilepticus, anxiety (depending on protocols)."
         ),
-        "contraindications": "Hypersensitivity.",
-        "precautions": (
-            "Do NOT insert supraglottic airway prior to administration. May"
-            " trigger acute withdrawal (HTN, agitation, combativeness, vomiting)."
-        ),
-        "side_effects": (
-            "HTN, hypotension, tachycardia, ventricular dysrhythmias, cardiac"
-            " arrest, N/V."
-        ),
-        "adult_dose": (
-            "0.4 - 2.0 mg increments IV/IO/IM/SQ/IN (Max SINGLE dose 2.0 mg;"
-            " Max total 6.0 mg)"
-        ),
-        "peds_dose": "0.1 mg/kg IV/IO/IM/SQ/IN (Max SINGLE dose 2.0 mg)",
+        "contraindications": "Hypotension, hypersensitivity, CNS depression.",
+        "adult_dose": "1 - 4 mg",
+        "peds_dose": "0.1 mg/kg",
     },
     {
-        "name": "Nitroglycerin (NitroStat, NitroBid)",
-        "class": "Antianginal / Vasodilator",
-        "action": (
-            "Potent organic nitrate vasodilator that relaxes smooth muscle,"
-            " dilates veins > arteries, reduces preload/afterload, and improves"
-            " collateral coronary flow."
-        ),
-        "indications": "Acute angina or chest pain of cardiac origin.",
-        "contraindications": (
-            "Hypersensitivity, increased ICP, Systolic BP < 100 mmHg, PDE-5"
-            " inhibitor use within 36 hrs (e.g., Viagra, Cialis, Levitra,"
-            " Revatio)."
-        ),
-        "precautions": (
-            "Obtain 12-lead EKG prior to administration to rule out Right"
-            " Ventricular Infarction."
-        ),
-        "side_effects": (
-            "Headache, severe hypotension, syncope, reflex tachycardia,"
-            " flushing, N/V."
-        ),
-        "adult_dose": (
-            "0.4 - 0.8 mg SL every 5 min PRN (up to 3 doses); Dermal: 1/2 to 1"
-            " inch Nitro-Bid paste."
-        ),
-        "peds_dose": "Not recommended",
-    },
-    {
-        "name": "Normal Saline (0.9% NaCl, NS)",
-        "class": "Isotonic Crystalloid Salt Solution",
-        "action": (
-            "Expands intravascular volume approximating blood sodium levels"
-            " (308 mOsmol/L). Contains 154 mEq Na+ and 154 mEq Cl- per liter."
-        ),
+        "name": "Amiodarone (Cordarone)",
+        "category": "Cardiac",
+        "class": "Sedative, Antiarrhythmic Agent (Class III)",
+        "route": "IV, IO",
         "indications": (
-            "Volume replacement fluid, TKO line for medication administration,"
-            " wound irrigation."
+            "Cardiac arrest: ventricular fibrillation, pulseless ventricular"
+            " tachycardia."
         ),
-        "contraindications": "None.",
-        "precautions": (
-            "Frequent breath sound assessments to avoid fluid overload; maintain"
-            " aseptic IV technique to avoid sepsis."
-        ),
-        "side_effects": "Fluid overload, edema, electrolyte imbalance, HTN, CHF.",
-        "adult_dose": "TKO or 20 mL/kg boluses per protocol",
-        "peds_dose": "TKO or 20 mL/kg boluses per protocol",
-    },
-    {
-        "name": "Ondansetron (Zofran)",
-        "class": "Antiemetic / Serotonin (5-HT3) Antagonist",
-        "action": (
-            "Selectively blocks serotonin 5-HT3 receptors in the CNS at the"
-            " chemoreceptor trigger zone and in the PNS on vagal nerve"
-            " terminals."
-        ),
-        "indications": "Nausea and vomiting.",
         "contraindications": (
-            "Hypersensitivity. Use caution in patients with hepatic impairment."
+            "2nd and 3rd degree blocks, cardiogenic shock, bradycardia."
         ),
-        "precautions": (
-            "Pushing too fast can increase side effects (headache, dizziness,"
-            " dysrhythmias)."
-        ),
-        "side_effects": (
-            "Headache, malaise, fatigue, dizziness, sedation, EPS, chest pain,"
-            " dysrhythmias, diarrhea, constipation, ABD pain, rash."
-        ),
-        "adult_dose": (
-            "4 - 8 mg slow IV push over 2-5 minutes (or PO, IV, IO, IM per"
-            " KSBEMS)"
-        ),
-        "peds_dose": (
-            "1 mo to 12 yrs: >40kg = 4 mg slow IV push over 2-5 min; <40kg = 0.1"
-            " mg/kg slow IV push over 2-5 min (or PO, IV, IO, IM)"
-        ),
+        "adult_dose": "1st dose: 300 mg; 2nd dose: 150 mg",
+        "peds_dose": "5 mg/kg (MAX 300 mg)",
     },
     {
-        "name": "Oral Analgesics & OTC Medications",
-        "class": "Analgesics / Antipyretics / Antihistamines / Antacids",
-        "action": (
-            "Varies by specific OTC medication class (e.g., Acetaminophen,"
-            " Ibuprofen, Diphenhydramine, Bismuth Subsalicylate, Ranitidine,"
-            " Omeprazole)."
+        "name": "Epinephrine 1:10,000",
+        "category": "Cardiac",
+        "class": "Sympathomimetic",
+        "route": "IV, IO",
+        "indications": "Cardiac arrest.",
+        "contraindications": "None in cardiac arrest.",
+        "adult_dose": "1 mg/10 ml",
+        "peds_dose": "0.01 mg/kg",
+    },
+    {
+        "name": "Fentanyl (Sublimaze)",
+        "category": "Pain Management",
+        "class": "Analgesic Opioid",
+        "route": "IV, IO, IN, IM",
+        "indications": '"Pain relief."',
+        "contraindications": (
+            "Hypertensives to opiates, patients using MAOI's. Caution: ICP,"
+            " bradycardia."
         ),
+        "adult_dose": "1 mcg/kg (range 25 - 100 mcg)",
+        "peds_dose": "1 mcg/kg",
+    },
+    {
+        "name": "Morphine",
+        "category": "Pain Management",
+        "class": "Analgesic Opioid",
+        "route": "IV, IO, IM",
+        "indications": '"Pain relief."',
+        "contraindications": (
+            "Hypotension, hypersensitivity to morphine, head injury."
+        ),
+        "adult_dose": "2.0 - 10 mg",
+        "peds_dose": "0.1 - 0.2 mg/kg",
+    },
+    {
+        "name": "Lidocaine",
+        "category": "Cardiac",
+        "class": "Antiarrhythmic, Anesthetic",
+        "route": "IV, IO",
         "indications": (
-            "Mild to moderate pain, fever, mild allergic symptoms, GI distress."
+            "Ventricular fibrillation, pulseless V-Tach; anesthesia after IO"
+            " insertion and before fluid or medication administration."
         ),
-        "contraindications": (
-            "Standing orders (NOT permitted in standing orders for AEMTs)."
-        ),
-        "precautions": (
-            "Requires DIRECT PHYSICIAN ORDER ONLY. AEMTs must report patient's"
-            " existing medications to physician to avoid adverse drug"
-            " interactions. Most common in clinical or industrial settings."
-        ),
-        "side_effects": "Varies by agent administered.",
-        "adult_dose": "Per Direct Physician Order ONLY",
-        "peds_dose": "Per Direct Physician Order ONLY",
-    },
-    {
-        "name": "Oxygen (O2)",
-        "class": "Medical Gas",
-        "action": (
-            "Essential for cellular metabolism. Increases arterial oxygen"
-            " saturation and tissue oxygenation."
-        ),
-        "indications": (
-            "Hypoxia (SpO2 < 94%), hypoperfusion, conditions requiring"
-            " increased oxygen supply."
-        ),
-        "contraindications": "None in life-threatening situations.",
-        "precautions": (
-            "Use caution in COPD/emphysema patients reliant on hypoxic drive;"
-            " do NOT withhold O2 if patient is hypoxic, but be prepared to"
-            " ventilate via BVM if apnea occurs."
-        ),
-        "side_effects": (
-            "Apnea in COPD patients, drying of mucous membranes."
-        ),
+        "contraindications": "None in true emergency.",
         "adult_dose": (
-            "Cardiac Arrest / Critical: 100% (15-25 LPM via BVM, NRB, or ETT);"
-            " COPD: 35% titrate to effect"
+            "Cardiac arrest: 1 mg/kg; IO anesthetic: 20 - 40 mg, flush 20 -"
+            " 40 mg"
         ),
-        "peds_dose": "24% - 100% titrated to target oxygenation",
-    },
-    {
-        "name": "Pralidoxime (2-PAM / Protopam Chloride)",
-        "class": "Cholinesterase Reactivator",
-        "action": (
-            "Removes phosphate groups from cholinesterase, allowing it to"
-            " deactivate acetylcholine (ACh). Returns body toward normal"
-            " function following nerve agent exposure."
-        ),
-        "indications": "Severe organophosphate poisoning, nerve agent poisoning.",
-        "contraindications": (
-            "Inorganic compounds or carbamate insecticides (e.g., 1-naphthol,"
-            " carbofuran)."
-        ),
-        "precautions": (
-            "Administer alongside Atropine for optimal efficacy in severe"
-            " poisonings."
-        ),
-        "side_effects": (
-            "Dizziness, headache, tachycardia, HTN, nausea, vomiting, increased"
-            " salivation."
-        ),
-        "adult_dose": (
-            "600 mg IM via Mark 1 or DuoDote kit. Repeat per local protocol for"
-            " self or peer care."
-        ),
-        "peds_dose": "Protocol driven",
-    },
-    {
-        "name": "Promethazine (Phenergan)",
-        "class": "Phenothiazine Antiemetic",
-        "action": (
-            "Blocks central dopaminergic D1 and D2 receptors in the"
-            " chemoreceptor trigger zone (CTZ) of the brain."
-        ),
-        "indications": "Nausea and vomiting.",
-        "contraindications": (
-            "Known hypersensitivity, Parkinson's disease, narrow-angle"
-            " glaucoma."
-        ),
-        "precautions": (
-            "Severe tissue irritant (risk of severe vascular injury/gangrene if"
-            " extravasated or given intra-arterially). Lowers seizure threshold."
-            " Contains metabisulfites (asthma risk)."
-        ),
-        "side_effects": (
-            "Sedation, extrapyramidal/dystonic reactions, hypotension,"
-            " tachycardia, blurred vision, dry mouth, neuroleptic malignant"
-            " syndrome, paradoxical excitation."
-        ),
-        "adult_dose": "12.5 to 25 mg IV or IM every 4 hours PRN",
-        "peds_dose": "6.25 to 12.5 mg IV or IM (1 mo - 12 yrs) every 4 hours PRN",
-    },
-    {
-        "name": "Terbutaline (Brethine)",
-        "class": "Selective Beta-2 Adrenergic Agonist / Sympathomimetic",
-        "action": (
-            "Stimulates Beta-2 receptors causing rapid bronchodilation with"
-            " minimal cardiac effects. Relaxes uterine smooth muscle"
-            " (suppresses pre-term labor)."
-        ),
-        "indications": "Acute asthma attack, bronchospasm.",
-        "contraindications": "Known hypersensitivity.",
-        "precautions": (
-            "Monitor vital signs; use caution in elderly or patients with"
-            " cardiovascular disease/HTN. Beta-blockers may blunt response."
-        ),
-        "side_effects": (
-            "Palpitations, anxiety, dizziness, headache, tremors, HTN,"
-            " dysrhythmias, chest pain, N/V."
-        ),
-        "adult_dose": (
-            "0.25 mg SC; or 2 mg in 3 mL NS via nebulizer at 6-8 LPM O2 (repeat"
-            " in 15-30 min PRN)"
-        ),
-        "peds_dose": (
-            "0.25 mg SC; or 2 mg in 3 mL NS via nebulizer at 6-8 LPM O2 (repeat"
-            " in 15-30 min PRN)"
-        ),
+        "peds_dose": "IO anesthetic: 0.5 mg/kg",
     },
     {
         "name": "Tranexamic Acid (TXA)",
+        "category": "IV Fluids / Hemorrhage",
         "class": "Antifibrinolytic Agent",
-        "action": (
-            "Reversibly binds lysine receptor sites on plasminogen, preventing"
-            " its conversion to plasmin. Preserves fibrin matrix to stabilize"
-            " clot formation and stop hyper-fibrinolysis."
-        ),
+        "route": "IV, IO",
         "indications": (
-            "Adult trauma patients with significant hemorrhage (SBP < 90 mmHg,"
-            " HR > 110 bpm) requiring MTP within 3 hours of injury (max 8 hrs)."
+            "Hemorrhagic shock within 3 hours, marked blood loss, initial"
+            " systolic BP < 90."
         ),
+        "contraindications": "Hemorrhagic shock from non-traumatic causes.",
+        "adult_dose": "1 g/10 ml placed in 100 ml, given over 10 min",
+        "peds_dose": "Adults only.",
+    },
+    {
+        "name": "Methylprednisolone (Solu-Medrol)",
+        "category": "Respiratory",
+        "class": "Corticosteroid",
+        "route": "IV, IM, IO",
+        "indications": "Respiratory distress.",
+        "contraindications": "Premature infants, hypersensitivity.",
+        "adult_dose": "125 - 250 mg",
+        "peds_dose": "1.0 - 2.0 mg/kg",
+    },
+    {
+        "name": "Ketorolac (Toradol)",
+        "category": "Pain Management",
+        "class": "Non-Steroidal Anti-inflammatory Drug (NSAID)",
+        "route": "IV, IO",
+        "indications": '"Pain relief."',
         "contraindications": (
-            "Hypersensitivity, time elapsed > 3 hours, age < 16 years, isolated"
-            " closed head injury, pregnancy >= 24 weeks, concurrent use of PCCs"
-            " or Factor VIIa."
+            "Hypersensitivity to ASA or NSAIDs, ulcers, GI bleeds, taking"
+            " blood thinners."
         ),
-        "precautions": (
-            "Infuse slowly over 10 mins to prevent severe hypotension. Caution"
-            " in urinary tract bleeding. Inform receiving facility of field"
-            " loading dose."
+        "adult_dose": "30 - 60 mg IV",
+        "peds_dose": "0.5 mg/kg IV",
+    },
+    {
+        "name": "Ipratropium",
+        "category": "Respiratory",
+        "class": "Anticholinergic Bronchodilator",
+        "route": "Inhaled",
+        "indications": "Acute bronchospasm.",
+        "contraindications": "Hypersensitivity to ipratropium or atropine.",
+        "adult_dose": "0.5 mg",
+        "peds_dose": "0.5 mg",
+    },
+    {
+        "name": "Promethazine (Phenergan)",
+        "category": "GI / Antiemetic",
+        "class": "Antiemetic, Phenothiazine",
+        "route": "IM (preferred) or IV",
+        "indications": "Nausea and vomiting.",
+        "contraindications": (
+            "Known hypersensitivity, narrow angle glaucoma, Parkinson's"
+            " disease."
         ),
-        "side_effects": (
-            "Visual disturbances, N/V, headache, abdominal pain, diarrhea,"
-            " seizures, DVT, PE, anaphylaxis."
+        "adult_dose": "12.5 - 25 mg",
+        "peds_dose": "(>2 yr) 0.25 - 0.5 mg/kg",
+    },
+    {
+        "name": "D5W (5% Dextrose in 100 ml)",
+        "category": "IV Fluids / Hemorrhage",
+        "class": "Crystalloid, Isotonic (becomes hypotonic)",
+        "route": "IV, IO",
+        "indications": "Dehydration, hypoglycemia, hyponatremia.",
+        "contraindications": (
+            "Hyperglycemia, DKA, head bleeds, intracranial pressure."
         ),
-        "adult_dose": (
-            "1 gram IV infusion over 10 minutes (placed in 50 mL NS bag or slow"
-            " push)"
+        "adult_dose": "5 - 10 ml/kg (renal/cardiac/edema issues)",
+        "peds_dose": "20 ml/kg",
+    },
+    {
+        "name": "Lactated Ringers",
+        "category": "IV Fluids / Hemorrhage",
+        "class": "Crystalloid",
+        "route": "IV, IO",
+        "indications": (
+            "Burns; med administration (TKO) or volume replacement with"
+            " electrolytes (sodium, chloride, calcium, and lactate)."
         ),
-        "peds_dose": (
-            "0.5 - 1.0 mg/kg IM or IV single dose (Max 15 mg total daily dose)"
+        "contraindications": "Blood transfusions.",
+        "adult_dose": "5 - 10 ml/kg (renal/cardiac/edema issues)",
+        "peds_dose": "20 ml/kg",
+    },
+    {
+        "name": "Normal Saline",
+        "category": "IV Fluids / Hemorrhage",
+        "class": "Crystalloid",
+        "route": "IV, IO",
+        "indications": (
+            "Med administration (TKO) or volume replacement with"
+            " electrolytes (sodium, chloride)."
         ),
+        "contraindications": "None.",
+        "adult_dose": "5 - 10 ml/kg (renal/cardiac/edema issues)",
+        "peds_dose": "20 ml/kg",
     },
 ]
+
+# -----------------------------------------------------------------------------
+# CATEGORIES
+# -----------------------------------------------------------------------------
+ALL_CATEGORIES = sorted({m["category"] for m in MEDICATIONS})
+
+# Fields the quiz can ask about, and how each is labeled in a question.
+QUIZ_FIELDS = {
+    "class": "pharmacological class",
+    "route": "route of administration",
+    "indications": "indication(s)",
+    "contraindications": "contraindication(s)",
+    "adult_dose": "adult dose",
+}
+
 
 # -----------------------------------------------------------------------------
 # SESSION STATE INITIALIZATION
@@ -1003,27 +395,37 @@ if "quiz_total" not in st.session_state:
 if "current_question" not in st.session_state:
     st.session_state.current_question = None
 
+if "selected_categories" not in st.session_state:
+    st.session_state.selected_categories = list(ALL_CATEGORIES)
+if "selected_qtypes" not in st.session_state:
+    st.session_state.selected_qtypes = list(QUIZ_FIELDS.keys())
+
 # -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
 # -----------------------------------------------------------------------------
 
 
-def generate_quiz_question():
-    """Generates a dynamic multiple choice question based on the dataset."""
-    target = random.choice(MEDICATIONS)
-    q_type = random.choice([
-        "indications",
-        "contraindications",
-        "adult_dose",
-        "class",
-    ])
+def generate_quiz_question(pool, q_types):
+    """Generates a dynamic multiple choice question from the given pool,
+    asking only about fields in q_types."""
+    target = random.choice(pool)
+    q_type = random.choice(q_types)
 
     correct_ans = target[q_type]
 
-    # Pull distractor options from other medications
-    other_meds = [m for m in MEDICATIONS if m["name"] != target["name"]]
+    # Prefer distractors from the same filtered pool; fall back to the full
+    # dataset if the pool is too small to supply enough wrong answers.
+    other_in_pool = [m for m in pool if m["name"] != target["name"]]
+    if len(other_in_pool) >= 1:
+        distractor_source = other_in_pool
+    else:
+        distractor_source = [
+            m for m in MEDICATIONS if m["name"] != target["name"]
+        ]
+
     wrong_choices = random.sample(
-        [m[q_type] for m in other_meds], min(3, len(other_meds))
+        [m[q_type] for m in distractor_source],
+        min(3, len(distractor_source)),
     )
 
     choices = wrong_choices + [correct_ans]
@@ -1046,14 +448,92 @@ st.title("🚑 Kansas AEMT Pharmacology Suite")
 # Sidebar navigation
 mode = st.sidebar.radio("Study Mode", ["Flashcards", "Multiple Choice Quiz"])
 
+# Category filter — applies to both Flashcards and the Quiz
+st.sidebar.divider()
+st.sidebar.subheader("📂 Categories")
+
+sel_col1, sel_col2 = st.sidebar.columns(2)
+with sel_col1:
+    if st.button("Select All", use_container_width=True):
+        st.session_state.selected_categories = list(ALL_CATEGORIES)
+        st.rerun()
+with sel_col2:
+    if st.button("Clear All", use_container_width=True):
+        st.session_state.selected_categories = []
+        st.rerun()
+
+selected_categories = st.sidebar.multiselect(
+    "Study only these categories:",
+    options=ALL_CATEGORIES,
+    default=st.session_state.selected_categories,
+    key="selected_categories",
+)
+
+filtered_meds = [
+    m for m in MEDICATIONS if m["category"] in selected_categories
+]
+
+if not filtered_meds:
+    st.warning(
+        "⚠️ No categories selected. Choose at least one category in the"
+        " sidebar to continue."
+    )
+    st.stop()
+
+# Reset navigation/quiz state whenever the category selection changes
+filtered_names = tuple(m["name"] for m in filtered_meds)
+if st.session_state.get("_filtered_names") != filtered_names:
+    st.session_state._filtered_names = filtered_names
+    st.session_state.card_idx = 0
+    st.session_state.show_back = False
+    st.session_state.current_question = None
+
+# Quiz field filter — only relevant in Quiz mode
+if mode == "Multiple Choice Quiz":
+    st.sidebar.divider()
+    st.sidebar.subheader("❓ Quiz Me On")
+
+    qsel_col1, qsel_col2 = st.sidebar.columns(2)
+    with qsel_col1:
+        if st.button("Select All", use_container_width=True, key="qtypes_all"):
+            st.session_state.selected_qtypes = list(QUIZ_FIELDS.keys())
+            st.rerun()
+    with qsel_col2:
+        if st.button("Clear All", use_container_width=True, key="qtypes_none"):
+            st.session_state.selected_qtypes = []
+            st.rerun()
+
+    selected_qtypes = st.sidebar.multiselect(
+        "Which fields should questions come from?",
+        options=list(QUIZ_FIELDS.keys()),
+        format_func=lambda k: QUIZ_FIELDS[k],
+        default=st.session_state.selected_qtypes,
+        key="selected_qtypes",
+    )
+
+    if not selected_qtypes:
+        st.warning(
+            "⚠️ No question fields selected. Choose at least one field"
+            " (e.g. route, dose, class) in the sidebar to continue."
+        )
+        st.stop()
+
+    # Reset the current question whenever the field selection changes
+    qtypes_tuple = tuple(sorted(selected_qtypes))
+    if st.session_state.get("_selected_qtypes_snapshot") != qtypes_tuple:
+        st.session_state._selected_qtypes_snapshot = qtypes_tuple
+        st.session_state.current_question = None
+
 # =============================================================================
 # MODE 1: TRADITIONAL TWO-SIDED FLASHCARDS
 # =============================================================================
 if mode == "Flashcards":
     st.header("Interactive Two-Sided Flashcards")
+    st.caption(f"Showing {len(filtered_meds)} of {len(MEDICATIONS)} medications")
 
-    total_cards = len(MEDICATIONS)
-    current_card = MEDICATIONS[st.session_state.card_idx]
+    total_cards = len(filtered_meds)
+    st.session_state.card_idx = st.session_state.card_idx % total_cards
+    current_card = filtered_meds[st.session_state.card_idx]
 
     # Card Progress
     st.progress((st.session_state.card_idx + 1) / total_cards)
@@ -1062,18 +542,17 @@ if mode == "Flashcards":
     # Card Container
     with st.container(border=True):
         st.subheader(f"💊 {current_card['name']}")
+        st.caption(f"🏷️ {current_card['category']}")
 
         if not st.session_state.show_back:
             st.info("👆 Click **Flip Card** to view detailed pharmacology.")
         else:
             st.markdown(f"**Class:** {current_card['class']}")
-            st.markdown(f"**Action:** {current_card['action']}")
+            st.markdown(f"**Route:** {current_card['route']}")
             st.markdown(f"**Indications:** {current_card['indications']}")
             st.markdown(
                 f"**Contraindications:** {current_card['contraindications']}"
             )
-            st.markdown(f"**Precautions:** {current_card['precautions']}")
-            st.markdown(f"**Side Effects:** {current_card['side_effects']}")
             st.markdown(f"**Adult Dose:** {current_card['adult_dose']}")
             st.markdown(f"**Peds Dose:** {current_card['peds_dose']}")
 
@@ -1106,6 +585,9 @@ if mode == "Flashcards":
 # =============================================================================
 elif mode == "Multiple Choice Quiz":
     st.header("Pharmacology Knowledge Check")
+    st.caption(
+        f"Quizzing on {len(filtered_meds)} of {len(MEDICATIONS)} medications"
+    )
 
     # Metrics on sidebar
     st.sidebar.metric(
@@ -1114,19 +596,12 @@ elif mode == "Multiple Choice Quiz":
     )
 
     if st.session_state.current_question is None:
-        generate_quiz_question()
+        generate_quiz_question(filtered_meds, selected_qtypes)
 
     q = st.session_state.current_question
 
-    field_labels = {
-        "indications": "indication(s)",
-        "contraindications": "contraindication(s)",
-        "adult_dose": "adult dose & route",
-        "class": "pharmacological class",
-    }
-
     st.write(
-        f"**Question:** What is the correct **{field_labels[q['q_type']]}** for"
+        f"**Question:** What is the correct **{QUIZ_FIELDS[q['q_type']]}** for"
         f" **{q['drug_name']}**?"
     )
 
@@ -1151,5 +626,5 @@ elif mode == "Multiple Choice Quiz":
 
     with col2:
         if st.button("Next Question ➡️"):
-            generate_quiz_question()
+            generate_quiz_question(filtered_meds, selected_qtypes)
             st.rerun()
